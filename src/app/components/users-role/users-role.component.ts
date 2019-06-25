@@ -21,7 +21,6 @@ export class UserRolesComponent implements OnInit {
 
   getAllUserRoles() {
       // this.users = []
-    
       this.rootService.getAllUserRoles().subscribe(ur => {
         this.userRoles = ur;
         console.log(ur);

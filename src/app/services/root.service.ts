@@ -16,9 +16,12 @@ export class RootService {
         // this.tasksSubject = new BehaviorSubject<any>(null);
     }
 
-    getAllTasks() : Observable<any> {
+    getAllTasks(x: number): Observable<any> {
+        x = x + 1;
+        // const from = ;
+        // const to = ;
         return this.http.get<any>(
-            `https://localhost:44348/api/Tasks`);
+            `https://localhost:44348/api/Tasks?page=` + x);
 
         // return this.http.get<any>(`https://localhost:44348/api/Tasks/`)
         //     .pipe(map(response => {
@@ -28,7 +31,7 @@ export class RootService {
         //     }));
     }
 
-    getAllUsers() : Observable<any> {
+    getAllUsers(): Observable<any> {
         return this.http.get<any>(
             `https://localhost:44348/api/users`);
 
@@ -40,8 +43,7 @@ export class RootService {
         //     }));
     }
 
-    
-    getAllUserRoles() : Observable<any> {
+    getAllUserRoles(): Observable<any> {
         return this.http.get<any>(
             `https://localhost:44348/api/userRoles`);
 
