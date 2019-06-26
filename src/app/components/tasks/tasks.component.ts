@@ -29,6 +29,35 @@ export class TasksComponent implements OnInit {
       });
   }
 
+  getAllFilterDate(startDate: Date, endDate: Date) {
+    // if (startDate == null && endDate == null) {
+    //   this.getAllTasks(0);
+    // }
+    // if (startDate === undefined && endDate === undefined) {
+    //   this.getAllTasks(0);
+    // }
+    // if (startDate == null && endDate === undefined) {
+    //   this.getAllTasks(0);
+    // }
+    // if (startDate === undefined && endDate == null) {
+    //   this.getAllTasks(0);
+    // }
+
+    // if (startDate == null && undefined && endDate == null || undefined) {
+    //   this.getAllTasks(0);
+    // }
+
+    this.rootService.getAllFilterDate(startDate, endDate).subscribe(t => {
+      this.tasks = t;
+      console.log(t);
+    });
+
+    // startDate || endDate == null ? this.getAllTasks(0) : this.rootService.getAllFilterDate(startDate, endDate).subscribe(t => {
+    //   this.tasks = t;
+    //   console.log(t);
+    // });
+  }
+
   public handlePage(e: any) {
     this.getAllTasks(e.pageIndex);
   }

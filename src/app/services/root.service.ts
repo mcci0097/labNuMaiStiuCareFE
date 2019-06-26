@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { map } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { NgLocaleLocalization } from '@angular/common';
 
 @Injectable({ providedIn: 'root' })
 export class RootService {
@@ -34,24 +35,55 @@ export class RootService {
     getAllUsers(): Observable<any> {
         return this.http.get<any>(
             `https://localhost:44348/api/users`);
-
-        // return this.http.get<any>(`https://localhost:44348/api/users`)
-        //     .pipe(map(response => {
-        //         this.users = response;
-        //         this.usersSubject.next(this.users);
-        //         return response;
-        //     }));
     }
 
     getAllUserRoles(): Observable<any> {
         return this.http.get<any>(
             `https://localhost:44348/api/userRoles`);
-
-        // return this.http.get<any>(`https://localhost:44348/api/users`)
-        //     .pipe(map(response => {
-        //         this.users = response;
-        //         this.usersSubject.next(this.users);
-        //         return response;
-        //     }));
     }
+
+    getAllFilterDate(startDate: Date, endDate: Date): Observable<any> {
+        let startFormatted = null;
+        let endFormatted = null;
+
+        if (startDate == null && endDate == null) {
+            return this.getAllTasks(0);
+          }
+        if (startDate === undefined && endDate === undefined) {
+            this.getAllTasks(0);
+          }
+        if (startDate == null && endDate === undefined) {
+            this.getAllTasks(0);
+          }
+        if (startDate === undefined && endDate == null) {
+            this.getAllTasks(0);
+          }
+
+        if (startDate === undefined) {
+            endFormatted = endDate.toISOString();
+            return this.http.get<any>(
+                'https://localhost:44348/api/Tasks?to=' + endFormatted);
+        }
+        if (startDate == null) {
+            endFormatted = endDate.toISOString();
+            return this.http.get<any>(
+                'https://localhost:44348/api/Tasks?to=' + endFormatted);
+        }
+        if (endDate === undefined) {
+            startFormatted = startDate.toISOString();
+            return this.http.get<any>(
+                'https://localhost:44348/api/Tasks?from=' + startFormatted);
+        }
+        if (endDate == null) {
+            startFormatted = startDate.toISOString();
+            return this.http.get<any>(
+                'https://localhost:44348/api/Tasks?from=' + startFormatted);
+        }
+        startFormatted = startDate.toISOString();
+        endFormatted = endDate.toISOString();
+        return this.http.get<any>(
+            'https://localhost:44348/api/Tasks?from=' + startFormatted +
+            '&to=' + endFormatted);
+    }
+
 }

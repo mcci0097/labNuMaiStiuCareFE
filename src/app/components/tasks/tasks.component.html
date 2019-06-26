@@ -1,6 +1,30 @@
-<!-- <ul>
-  <li *ngFor="let t of tasks.entries">{{t.title}}</li>
-</ul> -->
+<mat-form-field class="startDate">
+  <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1" [(ngModel)]="date1"  placeholder="Choose a date">
+  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+  <mat-datepicker #picker1></mat-datepicker>
+</mat-form-field>
+
+<mat-form-field>
+  <input matInput [min]="startDate" [max]="maxDate" [matDatepicker]="picker2" [(ngModel)]="date2" format="YYYY/MM/DD HH:mm:ss" placeholder="Choose an end date">
+  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+  <mat-datepicker #picker2 [startAt]="startDate"></mat-datepicker>
+</mat-form-field>
+
+<button id="filter" (click)="getAllFilterDate(date1, date2)" mat-raised-button class="login-btn" color="primary">
+  Filter Date
+</button>
+
+<!-- <mat-form-field>
+  <input matInput [min]="minDate" [max]="maxDate" [formControl]="startDate" [matDatepicker]="picker" placeholder="Choose a start date">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker1 startView="year" [startAt]="minDate"></mat-datepicker>
+</mat-form-field> -->
+
+<!-- <mat-form-field>
+  <input matInput [min]="startDate" [max]="maxDate" [formControl]="endDate" [matDatepicker]="picker" placeholder="Choose a date">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker2 startView="year" [startAt]="startDate"></mat-datepicker>
+</mat-form-field> -->
 
 <table *ngIf ="tasks != null" mat-table [dataSource]="tasks.entries" class="mat-elevation-z8">
   <!--- Note that these columns can be defined in any order.
