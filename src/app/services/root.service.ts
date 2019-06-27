@@ -39,7 +39,7 @@ export class RootService {
 
     getAllUserRoles(): Observable<any> {
         return this.http.get<any>(
-            `https://localhost:44348/api/userRoles`);
+            `https://localhost:44348/api/role`);
     }
 
     getAllFilterDate(startDate: Date, endDate: Date): Observable<any> {
@@ -84,6 +84,16 @@ export class RootService {
         return this.http.get<any>(
             'https://localhost:44348/api/Tasks?from=' + startFormatted +
             '&to=' + endFormatted);
+    }
+
+    getUserHistory(x: number): Observable<any> {
+        return this.http.get<any>(
+            `https://localhost:44348/api/history/` + x);
+    }
+
+    getAllCommentsAndFilter(filter): Observable<any> {
+        const url = `${`https://localhost:44348/api/comment?filter=`}${filter}`;
+        return this.http.get<any>(url,filter)
     }
 
 }
